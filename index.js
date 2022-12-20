@@ -15,6 +15,7 @@ client.on('messageCreate', message => {
     
     const args = message.content.slice(config.prefix.length).split(/ +/);
     const command = args.shift();
+    const OtherChars = /^[a-zA-Z]+$/;
 
     fs.readdir('./files/', (err, folders) => {
         var selectedFolder = null;
@@ -36,6 +37,10 @@ client.on('messageCreate', message => {
                     // Invalid image number
                     if (imageNumber > folderSize || imageNumber < 1) { 
                         return message.channel.send("Possible arguments: " + config.prefix + command + " [1-" + folderSize + "]."); 
+                    }
+                    // letter crash fix test
+                    if (OtherChars) {
+                        return message.channel.send("Please input a number and not a letter");
                     }
                 }
 
